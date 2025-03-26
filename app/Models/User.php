@@ -32,4 +32,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function getAllStudent()
+    {
+        return self::all();
+    }
+
+    public function studentParent()
+    {
+        return $this->hasOne(StudentParent::class, 'student_id');
+    }
 }
