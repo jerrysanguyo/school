@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\StudentParentController;
 use App\Http\Controllers\StudentDetailController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\BarangayController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,3 +17,5 @@ Route::get('/login', [UserController::class, 'login'])
 Route::resource('parent', StudentParentController::class);
 Route::resource('user', UserController::class);
 Route::resource('detail', StudentDetailController::class);
+Route::resource('district', DistrictController::class);
+Route::resource('barangay', BarangayController::class);
