@@ -47,4 +47,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(StudentDetail::class, 'student_id');
     }
+
+    public function districtCreatedBy()
+    {
+        return $this->hasMany(District::class, 'created_by');
+    }
+
+    public function districtUpdatedBy()
+    {
+        return $this->hasMany(District::class, 'updated_by');
+    }
 }
