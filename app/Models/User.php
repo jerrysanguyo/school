@@ -57,4 +57,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(District::class, 'updated_by');
     }
+
+    public function barangayCreatedBy()
+    {
+        return $this->hasMany(Barangay::class, 'created_by');
+    }
+
+    public function barangayUpdatedBy()
+    {
+        return $this->hasMany(Barangay::class, 'updated_by');
+    }
 }

@@ -26,7 +26,7 @@ class BarangayController extends Controller
         //
     }
     
-    public function store(Request $request)
+    public function store(BarangayRequest $request)
     {
         $this->barangayService->store($request->validated());
 
@@ -45,7 +45,7 @@ class BarangayController extends Controller
         //
     }
     
-    public function update(Request $request, barangay $barangay)
+    public function update(BarangayRequest $request, barangay $barangay)
     {
         $this->barangayService->update($request->validated(), $barangay);
 

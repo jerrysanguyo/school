@@ -26,7 +26,7 @@ class DistrictController extends Controller
         //
     }
     
-    public function store(Request $request)
+    public function store(DistrictRequest $request)
     {
         $this->districtService->store($request->validated());
 
@@ -45,7 +45,7 @@ class DistrictController extends Controller
         //
     }
     
-    public function update(Request $request, DistrictController $districtController)
+    public function update(DistrictRequest $request, DistrictController $districtController)
     {
         $this->districtService->update($request->validated(), $districtController);
 
