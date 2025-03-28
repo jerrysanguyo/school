@@ -37,34 +37,83 @@ class User extends Authenticatable
     {
         return self::all();
     }
+    
+    protected static $userRelationships = [
+        'studentParent' => [
+            'relation' => 'hasOne',
+            'class' => StudentParent::class,
+        ],
 
-    public function studentParent()
-    {
-        return $this->hasOne(StudentParent::class, 'student_id');
-    }
+        'studentDetail' => [
+            'relation' => 'hasOne',
+            'class' => StudentDetail::class,
+        ],
 
-    public function studentDetail()
-    {
-        return $this->hasOne(StudentDetail::class, 'student_id');
-    }
+        'studentQr' => [
+            'relation' => 'hasOne',
+            'class' => Qr::class,
+        ],
 
-    public function districtCreatedBy()
-    {
-        return $this->hasMany(District::class, 'created_by');
-    }
+        'userRfid' => [
+            'relation' => 'hasOne',
+            'class' => Rfid::class,
+        ],
+    ];
 
-    public function districtUpdatedBy()
-    {
-        return $this->hasMany(District::class, 'updated_by');
-    }
+    protected static $cmsRelationship = [
+        // created a nested array for dynamic relationships
+        // key is the outer array
+        // config is the inner array
+        'district' => 
+        [
+            'relation' => 'hasMany',
+            'class' => District::class,
+        ],
 
-    public function barangayCreatedBy()
-    {
-        return $this->hasMany(Barangay::class, 'created_by');
-    }
+        'barangay' => 
+        [
+            'relation' => 'hasMany',
+            'class' => Barangay::class,
+        ],
 
-    public function barangayUpdatedBy()
+        'school' => 
+        [
+            'relation'  => 'hasOne',
+            'class' => School::class,
+        ],
+    ];
+
+    public function __call($method, $parameters)
     {
-        return $this->hasMany(Barangay::class, 'updated_by');
+
+        foreach(self::$userRelationships as $userKey => $userValue)
+        {
+            if($method === $userKey)
+            {
+                if ($userKey === 'userRfid')
+                {
+                    return $this->{$userValue['relation']}($userValue['class'], 'user_id');
+                    // interpretation: equivalent to calling, $this->hasOne(Rfid::class, 'user_id');
+                } else {
+                    return $this->{$userValue['relation']}($userValue['class'], 'student_id');
+                }
+            }
+        }
+
+        foreach (self::$cmsRelationship as $cmsKey => $cmsValue)
+        {
+            if ($method === $cmsKey . 'CreatedBy')
+            {
+                return $this->{$cmsValue['relation']}($cmsValue['class'], 'created_by');
+                // interpretation: equivalent to calling, e.g., $this->hasMany(District::class, 'created_by')
+            }
+            if ($method === $cmsKey . 'UpdatedBy')
+            {
+                return $this->{$cmsValue['relation']}($cmsValue['class'], 'updated_by');
+                // interpretation: equivalent to calling, e.g., $this->hasMany(District::class, 'updated_by')
+            }
+        }
+
+        return parent::__call($method, $parameters);
     }
 }
