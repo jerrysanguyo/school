@@ -7,6 +7,7 @@ use App\Http\Controllers\StudentDetailController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\RfidController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,3 +22,4 @@ Route::resource('detail', StudentDetailController::class);
 Route::resource('district', DistrictController::class);
 Route::resource('barangay', BarangayController::class);
 Route::resource('school', SchoolController::class);
+Route::resource('rfid', RfidController::class);
