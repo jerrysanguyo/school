@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Http\Requests\auth\UserRequest;
+use App\Http\Requests\auth\LoginRequest;
 use App\Services\auth\UserService;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,19 +22,32 @@ class UserController extends Controller
     {
         return view('auth.login');
     }
+
+    public function logout()
+    {
+        $this->userService->logout();
+
+        return redirect()
+            ->route('login')
+            ->with('success', 'Logged out successfully');
+    }
     
     public function index()
     {
         return view('cms.index');
     }
     
-    public function store(UserRequest $request)
+    public function loginCheck(LoginRequest $request)
     {
-        $this->userService->create($request->validated());
+        if ($this->userService->check($request->validated())) {
+            return redirect()
+                ->route(Auth::user()->role . '.dashboard')
+                ->with('success', 'User created successfully');
+        }
 
         return redirect()
-            ->route(Auth::user()->role . '.cms.index')
-            ->with('success', 'User created successfully');
+            ->route('login')
+            ->with('failed', 'Invalid login credentials.');
     }
     
     public function show(User $user)

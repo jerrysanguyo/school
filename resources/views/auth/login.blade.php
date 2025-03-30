@@ -4,12 +4,14 @@
 <div class="flex items-center justify-center min-h-screen ml-5 mr-5">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <img class="w-30 mx-auto block" src="{{ asset('images/treasury_logo.webp') }}" alt="">
-        <h2 class="text-2xl font-bold mb-2 text-center text-gray-800">Office of the City Treasurer</h2>
+        <h2 class="text-2xl font-bold mb-2 text-center text-gray-800">School</h2>
         <p class="mb-4 text-center text-gray-600 text-sm">
             Please enter your credentials to access the dashboard. If you need assistance, contact your
             administrator.
         </p>
-        <form action="#" method="POST">
+        @include('alert.index')
+        <form action="{{ route('login.check') }}" method="POST">
+            @csrf
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-medium">Email</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email"

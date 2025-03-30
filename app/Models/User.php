@@ -38,6 +38,9 @@ class User extends Authenticatable
         return self::all();
     }
     
+    // created a nested array for dynamic relationships
+    // key is the outer array
+    // config is the inner array
     protected static $userRelationships = [
         'studentParent' => [
             'relation' => 'hasOne',
@@ -58,12 +61,14 @@ class User extends Authenticatable
             'relation' => 'hasOne',
             'class' => Rfid::class,
         ],
+
+        'userAttendance' => [
+            'relation' => 'hasMany',
+            'class' => Attendance::class,
+        ],
     ];
 
     protected static $cmsRelationship = [
-        // created a nested array for dynamic relationships
-        // key is the outer array
-        // config is the inner array
         'district' => 
         [
             'relation' => 'hasMany',
@@ -90,12 +95,16 @@ class User extends Authenticatable
         {
             if($method === $userKey)
             {
-                if ($userKey === 'userRfid')
+                // The reason why there are 2 user_id and student_id
+                // user_id is applicable for teacher and student while the student is only applicable to student only.
+                if ($userKey === 'userRfid' || $userKey === 'userAttendance')
                 {
+                    // if the foreignId is name as user_id
                     return $this->{$userValue['relation']}($userValue['class'], 'user_id');
                     // interpretation: equivalent to calling, $this->hasOne(Rfid::class, 'user_id');
                 } else {
                     return $this->{$userValue['relation']}($userValue['class'], 'student_id');
+                    // interpretation: equivalent to calling, $this->hasOne(Rfid::class, 'student_id');
                 }
             }
         }

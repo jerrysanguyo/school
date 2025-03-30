@@ -129,7 +129,11 @@
                 <div class="relative">
                     <button @click="userDropdownOpen = !userDropdownOpen"
                         class="w-full flex items-center justify-between py-2 px-3 rounded hover:bg-gray-200 transition focus:outline-none">
-                        <span x-show="!sidebarCollapsed" x-cloak class="font-medium">Jerry Sanguyo Jr.</span>
+                        @if(Auth::check())
+                        <span x-show="!sidebarCollapsed" x-cloak
+                            class="font-medium">{{ Auth::user()->first_name . ' ' . Auth::user()->middle_name . ' ' . Auth::user()->last_name }}
+                        </span>
+                        @endif
                         <span x-show="sidebarCollapsed" x-cloak class="font-medium">Js</span>
                         <svg x-show="!sidebarCollapsed" x-cloak class="w-4 h-4 ml-2" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -150,12 +154,18 @@
                             <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
                                     class="fa-solid fa-user"></i></span>
                         </a>
-                        <a href="#" class="block py-2 px-3 hover:bg-gray-200 transition">
-                            <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
-                                    class="fa-solid fa-right-from-bracket"></i> Logout</span>
-                            <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                                    class="fa-solid fa-right-from-bracket"></i></span>
-                        </a>
+                        <form action="{{ route('logout') }}" method="POST" class="block">
+                            @csrf
+                            <button type="submit"
+                                class="block w-full text-left py-2 px-3 hover:bg-gray-200 transition focus:outline-none">
+                                <span x-show="!sidebarCollapsed" x-cloak class="font-medium">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                                </span>
+                                <span x-show="sidebarCollapsed" x-cloak class="font-medium">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

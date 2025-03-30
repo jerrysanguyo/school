@@ -3,12 +3,23 @@
 namespace App\Services\auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
-    public function create(array $data): User
+    public function logout(): void
     {
-        return User::create($data);
+        Auth::logout(); 
+        request()->session()->invalidate(); 
+        request()->session()->regenerateToken();
+    }
+    
+    public function check(array $data): bool
+    {
+        return Auth::attempt([
+            'email' => $data['email'],
+            'password'=> $data['password'],
+        ]);
     }
 
     public function update(array $data, $user): void
