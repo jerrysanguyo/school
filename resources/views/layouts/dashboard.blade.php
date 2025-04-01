@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/4f2d7302b1.js" crossorigin="anonymous"></script>
-    <title>Laravel tailwin template</title>
+    <title>School attendance RFID system</title>
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 </head>
@@ -22,11 +22,11 @@
 
             <div class="flex items-center justify-center h-16 border-b border-gray-200">
                 <span x-show="!sidebarCollapsed" x-cloak class="font-bold text-xl flex items-center">
-                    <img src="{{ asset('images/treasury_logo.webp') }}" alt="" class="w-10 mr-2">
-                    Real Property Tax
+                    <img src="{{ asset('images/srcc_logo.webp') }}" alt="" class="w-10 mr-2">
+                    School name
                 </span>
                 <span x-show="sidebarCollapsed" x-cloak class="font-bold text-xl">
-                    <img src="{{ asset('images/treasury_logo.webp') }}" alt="" class="w-10">
+                    <img src="{{ asset('images/srcc_logo.webp') }}" alt="" class="w-10">
                 </span>
             </div>
 
@@ -38,56 +38,16 @@
                             class="fa-solid fa-table-columns"></i></span>
                 </a>
                 <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-flag"></i> Notice
-                        of assessment</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-flag"></i></span>
+                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-school"></i>
+                        School</span>
+                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
+                            class="fa-solid fa-school"></i></span>
                 </a>
                 <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                     <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-cash-register"></i> Payment system</span>
+                            class="fa-solid fa-graduation-cap"></i> Students</span>
                     <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-cash-register"></i></span>
-                </a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-money-bill-transfer"></i> Tax Deposit</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-money-bill-transfer"></i></span>
-                </a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-circle-check"></i> Tax Clearance</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-circle-check"></i></span>
-                </a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-circle-xmark"></i> Delinquency</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-circle-xmark"></i></span>
-                </a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-file"></i>
-                        Reports</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-file"></i></span>
-                </a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-receipt"></i> OR
-                        Manager</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-receipt"></i></span>
-                </a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-credit-card"></i>
-                        Online Payment</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-credit-card"></i></span>
-                </a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-message"></i>
-                        Message</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-message"></i></span>
+                            class="fa-solid fa-graduation-cap"></i></span>
                 </a>
 
                 <div x-data="{ cmsOpen: false }" class="block">
@@ -106,23 +66,18 @@
                     <div x-show="cmsOpen" x-cloak class="pl-4 mt-2 space-y-2">
                         <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                             <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
-                                    class="fa-solid fa-font-awesome"></i> Table</span>
+                                    class="fa-solid fa-building"></i> Barangay</span>
                             <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                                    class="fa-solid fa-font-awesome"></i></span>
+                                    class="fa-solid fa-building"></i></span>
                         </a>
                         <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                             <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
-                                    class="fa-solid fa-font-awesome"></i> Ingredient</span>
+                                    class="fa-solid fa-map-pin"></i> District</span>
                             <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                                    class="fa-solid fa-font-awesome"></i></span>
+                                    class="fa-solid fa-map-pin"></i></span>
                         </a>
                     </div>
                 </div>
-
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium">Something</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium">S</span>
-                </a>
             </nav>
 
             <div class="mt-auto p-4 border-t border-gray-200" x-data="{ userDropdownOpen: false }">
@@ -134,7 +89,8 @@
                             class="font-medium">{{ Auth::user()->first_name . ' ' . Auth::user()->middle_name . ' ' . Auth::user()->last_name }}
                         </span>
                         @endif
-                        <span x-show="sidebarCollapsed" x-cloak class="font-medium">Js</span>
+                        <span x-show="sidebarCollapsed" x-cloak
+                            class="font-medium">{{ strtoupper(substr(Auth::user()->first_name, 0,1)) . strtoupper(substr(Auth::user()->last_name, 0,1))}}</span>
                         <svg x-show="!sidebarCollapsed" x-cloak class="w-4 h-4 ml-2" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 15l-7-7-7 7" />
