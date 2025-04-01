@@ -24,6 +24,27 @@
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required>
             </div>
+            @if ($resource === 'barangay')
+            <div class="mb-4">
+                <label for="district_id" class="block text-gray-700">District:</label>
+                <div class="relative">
+                    <select id="district_id" name="district_id"
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none">
+                        @foreach($subRecords as $material)
+                        <option value="{{ $material->id }}">{{ $material->remarks }}</option>
+                        @endforeach
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586 
+                         l3.293-3.293a1 1 0 011.414 1.414 
+                         l-4 4a1 1 0 01-1.414 0 
+                         l-4-4a1 1 0 010-1.414z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="flex justify-end">
                 <button type="button" @click="showModal = false"
                     class="px-4 py-2 mr-2 text-black rounded-lg hover:bg-gray-300 transition-colors">Cancel</button>

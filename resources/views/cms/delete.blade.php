@@ -12,13 +12,13 @@
         </div>
         <div class="mt-5 mb-3 text-gray-700 text-200 text-lg">
             <p>Are you sure you want to delete this record?</p>
-            <p class="mt-2"><span class="font-semibold">Name:</span> {{ $$resource->name }}</p>
-            <p><span class="font-semibold">Remarks:</span> {{ $$resource->remarks }}</p>
+            <p class="mt-2"><span class="font-semibold">Name:</span> {{ $record->name }}</p>
+            <p><span class="font-semibold">Remarks:</span> {{ $record->remarks }}</p>
         </div>
         <div class="flex justify-end">
             <button type="button" @click="showDeleteModal = false"
                 class="px-4 py-2 mr-2 text-black rounded-lg hover:bg-gray-300 transition-colors">Cancel</button>
-            <form action="{{ route(Auth::user()->role . '.' . $resource . '.destroy', $$resource->id) }}" method="POST">
+            <form action="{{ route(Auth::user()->role . '.' . $resource . '.destroy', $record->id) }}" method="POST">
                 @csrf
                 @method('delete')
                 <button type="submit"

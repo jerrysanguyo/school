@@ -40,13 +40,16 @@
                 </tr>
             </thead>
             <tbody class="text-gray-600 text-sm font-light text-center">
-                @foreach ($districts as $district)
+                @foreach ($records as $record)
                 <tr class="border border-gray-200 hover:bg-gray-100 transition-colors">
-                    <td class="px-4 py-2">{{ $district->id }}</td>
-                    <td class="py-3 px-4">{{ $district->name }}</td>
-                    <td class="py-3 px-4">{{ $district->remarks }}</td>
-                    <td class="py-3 px-4">{{ $district->createdBy->first_name . ' - ' . $district->created_at }}</td>
-                    <td class="py-3 px-4">{{ $district->updatedBy->first_name . ' - ' . $district->updated_at }}</td>
+                    <td class="px-4 py-2">{{ $record->id }}</td>
+                    @if ($resource === 'barangay')
+                    <td class="px-4 py-2">{{ $record->district->remarks }}</td>
+                    @endif
+                    <td class="py-3 px-4">{{ $record->name }}</td>
+                    <td class="py-3 px-4">{{ $record->remarks }}</td>
+                    <td class="py-3 px-4">{{ $record->createdBy->first_name . ' - ' . $record->created_at }}</td>
+                    <td class="py-3 px-4">{{ $record->updatedBy->first_name . ' - ' . $record->updated_at }}</td>
                     <td class="py-3 px-4">
                         <div class="inline-flex items-center space-x-2">
                             <div x-data="{ showEditModal: false }">

@@ -6,7 +6,7 @@ use App\Models\District;
 use App\Services\DistrictService;
 use App\Http\Requests\DistrictRequest;
 use Illuminate\Support\Facades\Auth;
-use App\DataTables\DistrictDataTable;
+use App\DataTables\CmsDataTable;
 
 class DistrictController extends Controller
 {
@@ -17,7 +17,7 @@ class DistrictController extends Controller
         $this->districtService = $districtService;
     }
 
-    public function index(DistrictDataTable $dataTable)
+    public function index(CmsDataTable $dataTable)
     {
         $page_title = 'Districts';
         $resource = 'district';
@@ -29,22 +29,17 @@ class DistrictController extends Controller
             'Updated',
             'Action',
         ];
-        $districts = District::getAllDistrict(); 
+        $records = District::getAllDistrict(); 
 
         return $dataTable->render('cms.index', compact(
                 'page_title', 
                 'resource',
                 'columns',
-                'districts',
+                'records',
                 'dataTable'
             ));
     }
-    
-    public function create()
-    {
-        //
-    }
-    
+
     public function store(DistrictRequest $request)
     {
         $data = $request->validated();

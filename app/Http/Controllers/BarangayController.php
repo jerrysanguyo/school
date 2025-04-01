@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\barangay;
+use App\Models\District;
 use App\Services\BarangayService;
 use App\Http\Requests\BarangayRequest;
+use App\DataTables\CmsDataTable;
 use Illuminate\Support\Facades\Auth;
 
 class BarangayController extends Controller
@@ -16,9 +18,30 @@ class BarangayController extends Controller
         $this->barangayService = $barangayService;
     }
 
-    public function index()
+    public function index(CmsDataTable $dataTable)
     {
-        //
+        $page_title = 'Barangay';
+        $resource = 'barangay';
+        $columns = [
+            'id',
+            'district',
+            'name',
+            'remarks',
+            'Created',
+            'Updated',
+            'Action',
+        ];
+        $records = Barangay::getAllBarangays();
+        $subRecords = District::getAllDistrict();
+
+        return $dataTable->render('cms.index', compact(
+            'page_title',
+            'resource',
+            'columns',
+            'records',
+            'dataTable',
+            'subRecords'
+        ));
     }
     
     public function create()
@@ -28,10 +51,11 @@ class BarangayController extends Controller
     
     public function store(BarangayRequest $request)
     {
-        $this->barangayService->store($request->validated());
+        $data = $request->validated();
+        $this->barangayService->store($data);
 
         return redirect()
-            ->route()
+            ->route(Auth::user()->role . '.barangay.index')
             ->with('success', 'Barangay successfully added.');
     }
     
@@ -50,7 +74,7 @@ class BarangayController extends Controller
         $this->barangayService->update($request->validated(), $barangay);
 
         return redirect()
-            ->route()
+            ->route(Auth::user()->role . '.barangay.index')
             ->with('success', 'Barangay successfully updated.');
     }
     
@@ -59,7 +83,7 @@ class BarangayController extends Controller
         $this->barangayService->destroy($barangay);
 
         return redirect()
-            ->route()
+            ->route(Auth::user()->role . '.barangay.index')
             ->with('success', 'Barangay successfully deleted.');
     }
 }

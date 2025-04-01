@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\District;
+use App\Models\Cm;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,16 +12,16 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class DistrictDataTable extends DataTable
+class CmsDataTable extends DataTable
 {
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'district.action')
+            ->addColumn('action', 'cms.action')
             ->setRowId('id');
     }
     
-    public function query(District $model): QueryBuilder
+    public function query(Cm $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -29,10 +29,10 @@ class DistrictDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('district-table')
+                    ->setTableId('cms-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    // ->dom('Bfrtip')
+                    //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
@@ -62,6 +62,6 @@ class DistrictDataTable extends DataTable
     
     protected function filename(): string
     {
-        return 'District_' . date('YmdHis');
+        return 'Cms_' . date('YmdHis');
     }
 }
