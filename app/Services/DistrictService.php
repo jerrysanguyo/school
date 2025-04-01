@@ -8,7 +8,12 @@ class DistrictService
 {
     public function store(array $data): District
     {
-        return District::create($data);
+        return District::create([
+            'name' => $data['name'],
+            'remarks' => $data['remarks'],
+            'created_by' => auth()->user()->id,
+            'updated_by' => auth()->user()->id,
+        ]);
     }
 
     public function update(array $data, $district): void

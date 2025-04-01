@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/4f2d7302b1.js" crossorigin="anonymous"></script>
     <title>School attendance RFID system</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 </head>
@@ -31,23 +33,23 @@
             </div>
 
             <nav class="p-4 space-y-2">
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                <a href="{{ route(Auth::user()->role . '.dashboard') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                     <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-table-columns"></i> Dashboard</span>
                     <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-table-columns"></i></span>
                 </a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-school"></i>
-                        School</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-school"></i></span>
-                </a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                <a href="{{ route(Auth::user()->role . '.user.index') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                     <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-graduation-cap"></i> Students</span>
                     <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-graduation-cap"></i></span>
+                </a>
+                <a href="{{ route(Auth::user()->role . '.school.index') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-school"></i>
+                        School</span>
+                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
+                            class="fa-solid fa-school"></i></span>
                 </a>
 
                 <div x-data="{ cmsOpen: false }" class="block">
@@ -64,13 +66,13 @@
                         </svg>
                     </button>
                     <div x-show="cmsOpen" x-cloak class="pl-4 mt-2 space-y-2">
-                        <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                        <a href="{{ route(Auth::user()->role . '.barangay.index') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                             <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                                     class="fa-solid fa-building"></i> Barangay</span>
                             <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
                                     class="fa-solid fa-building"></i></span>
                         </a>
-                        <a href="#" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                        <a href="{{ route(Auth::user()->role . '.district.index') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                             <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                                     class="fa-solid fa-map-pin"></i> District</span>
                             <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i

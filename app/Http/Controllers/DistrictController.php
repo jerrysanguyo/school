@@ -6,6 +6,7 @@ use App\Models\District;
 use App\Services\DistrictService;
 use App\Http\Requests\DistrictRequest;
 use Illuminate\Support\Facades\Auth;
+use App\DataTables\DistrictDataTable;
 
 class DistrictController extends Controller
 {
@@ -16,9 +17,27 @@ class DistrictController extends Controller
         $this->districtService = $districtService;
     }
 
-    public function index()
+    public function index(DistrictDataTable $dataTable)
     {
-        //
+        $page_title = 'Districts';
+        $resource = 'district';
+        $columns = [
+            'id',
+            'name',
+            'remarks',
+            'Created',
+            'Updated',
+            'Action',
+        ];
+        $districts = District::getAllDistrict(); 
+
+        return $dataTable->render('cms.index', compact(
+                'page_title', 
+                'resource',
+                'columns',
+                'districts',
+                'dataTable'
+            ));
     }
     
     public function create()
@@ -28,38 +47,29 @@ class DistrictController extends Controller
     
     public function store(DistrictRequest $request)
     {
-        $this->districtService->store($request->validated());
+        $data = $request->validated();
+        $this->districtService->store($data);
+    
+        return redirect()
+            ->route(auth()->user()->role . '.district.index')
+            ->with('success', 'District created successfully');
+    }
+    
+    public function update(DistrictRequest $request, District $district)
+    {
+        $this->districtService->update($request->validated(), $district);
 
         return redirect()
-            ->route()
-            ->with('succes', 'District created successfully');
+            ->route(Auth::user()->role . '.district.index')
+            ->with('success', 'District updated successfully');
     }
     
-    public function show(DistrictController $districtController)
+    public function destroy(District $district)
     {
-        //
-    }
-    
-    public function edit(DistrictController $districtController)
-    {
-        //
-    }
-    
-    public function update(DistrictRequest $request, DistrictController $districtController)
-    {
-        $this->districtService->update($request->validated(), $districtController);
+        $this->districtService->destroy($district);
 
         return redirect()
-            ->route()
-            ->with('succes', 'District updated successfully');
-    }
-    
-    public function destroy(DistrictController $districtController)
-    {
-        $this->districtService->destroy($districtController);
-
-        return redirect()
-            ->route()
-            ->with('succes', 'District deleted successfully');
+            ->route(Auth::user()->role . '.district.index')
+            ->with('success', 'District deleted successfully');
     }
 }

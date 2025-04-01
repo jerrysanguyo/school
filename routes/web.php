@@ -27,24 +27,27 @@ Route::middleware(['auth', 'check.user.role'])
     ->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
-        Route::resource('user', UserController::class);
-        Route::resource('parent', StudentParentController::class);
-        Route::resource('detail', StudentDetailController::class);
-        Route::resource('district', DistrictController::class);
-        Route::resource('barangay', BarangayController::class);
-        Route::resource('school', SchoolController::class);
-        Route::resource('rfid', RfidController::class);
+        // route resource
+        Route::resources([
+            'user'  => UserController::class,
+            'parent' => StudentParentController::class,
+            'detail' => StudentDetailController::class,
+            'district' => DistrictController::class,
+            'barangay' => BarangayController::class,
+            'school' => SchoolController::class,
+            'rfid' => RfidController::class,
+        ]);
     });
 
 Route::middleware(['auth', 'check.user.role'])
-    -> prefix('admin')
+    ->prefix('admin')
     ->name('admin.')
     ->group(function () {
         
     });
 
 Route::middleware(['auth', 'check.user.role'])
-    -> prefix('user')
+    ->prefix('user')
     ->name('user.')
     ->group(function () {
         
