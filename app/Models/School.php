@@ -20,7 +20,7 @@ class School extends Model
 
     public static function getSchool()
     {
-        return School::all();
+        return self::all();
     }
 
     public function createdBy()

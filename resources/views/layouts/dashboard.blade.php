@@ -25,7 +25,11 @@
             <div class="flex items-center justify-center h-16 border-b border-gray-200">
                 <span x-show="!sidebarCollapsed" x-cloak class="font-bold text-xl flex items-center">
                     <img src="{{ asset('images/srcc_logo.webp') }}" alt="" class="w-10 mr-2">
-                    School name
+                    <!-- School name -->
+                     @php
+                         $school = \App\Models\School::first();
+                     @endphp
+                     {{ $school->name ?? 'School name' }}
                 </span>
                 <span x-show="sidebarCollapsed" x-cloak class="font-bold text-xl">
                     <img src="{{ asset('images/srcc_logo.webp') }}" alt="" class="w-10">
@@ -33,23 +37,19 @@
             </div>
 
             <nav class="p-4 space-y-2">
-                <a href="{{ route(Auth::user()->role . '.dashboard') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                <a href="{{ route(Auth::user()->role . '.dashboard') }}"
+                    class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                     <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-table-columns"></i> Dashboard</span>
                     <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-table-columns"></i></span>
                 </a>
-                <a href="{{ route(Auth::user()->role . '.user.index') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                <a href="{{ route(Auth::user()->role . '.user.index') }}"
+                    class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                     <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-graduation-cap"></i> Students</span>
                     <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-graduation-cap"></i></span>
-                </a>
-                <a href="{{ route(Auth::user()->role . '.school.index') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
-                    <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i class="fa-solid fa-school"></i>
-                        School</span>
-                    <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
-                            class="fa-solid fa-school"></i></span>
                 </a>
 
                 <div x-data="{ cmsOpen: false }" class="block">
@@ -66,13 +66,22 @@
                         </svg>
                     </button>
                     <div x-show="cmsOpen" x-cloak class="pl-4 mt-2 space-y-2">
-                        <a href="{{ route(Auth::user()->role . '.barangay.index') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                        <a href="{{ route(Auth::user()->role . '.school.index') }}"
+                            class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                            <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
+                                    class="fa-solid fa-school"></i> School</span>
+                            <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
+                                    class="fa-solid fa-school"></i></span>
+                        </a>
+                        <a href="{{ route(Auth::user()->role . '.barangay.index') }}"
+                            class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                             <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                                     class="fa-solid fa-building"></i> Barangay</span>
                             <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
                                     class="fa-solid fa-building"></i></span>
                         </a>
-                        <a href="{{ route(Auth::user()->role . '.district.index') }}" class="block py-2 px-3 rounded hover:bg-gray-200 transition">
+                        <a href="{{ route(Auth::user()->role . '.district.index') }}"
+                            class="block py-2 px-3 rounded hover:bg-gray-200 transition">
                             <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                                     class="fa-solid fa-map-pin"></i> District</span>
                             <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i

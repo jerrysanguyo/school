@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\School;
 use App\Services\SchoolService;
 use App\Http\Requests\SchoolRequest;
+use App\DataTables\CmsDataTable;
 use Illuminate\Support\Facades\Auth;
 
 class SchoolController extends Controller
@@ -16,41 +17,45 @@ class SchoolController extends Controller
         $this->schoolService = $schoolService;
     }
 
-    public function index()
+    public function index(CmsDataTable $dataTable)
     {
-        //
-    }
-    
-    public function create()
-    {
-        //
+        $page_title = 'School';
+        $resource = 'school';
+        $columns = [
+            'id',
+            'name',
+            'remarks',
+            'created_by',
+            'updated_by',
+            'Action'
+        ];
+        $records = School::getSchool();
+
+        return $dataTable->render('cms.index', compact(
+            'page_title',
+            'resource',
+            'columns',
+            'records',
+            'dataTable'
+        ));
     }
     
     public function store(SchoolRequest $request)
     {
-        $this->schoolService->store($request->validated());
+        $data = $request->validated();
+        $this->schoolService->store($data);
 
         return redirect()
-            ->route()
+            ->route(Auth::user()->role . '.school.index')
             ->with('success', 'School has been added.');
     }
-    
-    public function show(School $school)
-    {
-        //
-    }
-    
-    public function edit(School $school)
-    {
-        //
-    }
-    
+
     public function update(SchoolRequest $request, School $school)
     {
         $this->schoolService->update($request->validated(), $school);
 
         return redirect()
-            ->route()
+            ->route(Auth::user()->role . '.school.index')
             ->with('success', 'School has been updated.');
     }
     
@@ -59,7 +64,7 @@ class SchoolController extends Controller
         $this->schoolService->destroy($school);
 
         return redirect()
-            ->route()
+            ->route(Auth::user()->role . '.school.index')
             ->with('success', 'School has been deleted.');
     }
 }

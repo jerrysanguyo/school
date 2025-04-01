@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Http\Requests\auth\UserRequest;
 use App\Http\Requests\auth\LoginRequest;
+use App\DataTables\UserDataTable;
 use App\Services\auth\UserService;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,11 +33,6 @@ class UserController extends Controller
             ->with('success', 'Logged out successfully');
     }
     
-    public function index()
-    {
-        return view('cms.index');
-    }
-    
     public function loginCheck(LoginRequest $request)
     {
         if ($this->userService->check($request->validated())) {
@@ -48,6 +44,18 @@ class UserController extends Controller
         return redirect()
             ->route('login')
             ->with('failed', 'Invalid login credentials.');
+    }
+    
+    public function index(UserDataTable $dataTable)
+    {
+        $page_title = 'Users';
+        $resource   = 'user';
+        return $dataTable->render('student.index', compact('page_title', 'resource'));
+    }
+    
+    public function store()
+    {
+        //
     }
     
     public function show(User $user)
