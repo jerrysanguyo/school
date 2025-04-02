@@ -78,7 +78,7 @@ class UserController extends Controller
     
     public function show(User $user)
     {
-        return view(Auth::user()->role . '.user.show', compact('user'));
+        return view('student.show', compact('user'));
     }
 
     public function update(UserRequest $request, User $user)

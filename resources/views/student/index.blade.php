@@ -31,8 +31,8 @@
     @include('alert.index')
 
     <div class="mb-4">
-        <input type="text" id="search" name="search" placeholder="Search by first name..."
-            value="{{ request('search') }}" class="border border-gray-300 rounded p-2 w-full">
+        <input type="text" id="search" name="search" placeholder="Search by name..." value="{{ request('search') }}"
+            class="border border-gray-300 rounded p-2 w-full">
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -57,11 +57,13 @@
                     </button>
                     @include('student.edit')
                 </div>
-                <button
-                    class="p-2 bg-green-100 text-green-500 hover:bg-green-200 hover:text-green-700 rounded transition-colors"
-                    title="View user">
-                    <i class="fa-solid fa-expand"></i> View user
-                </button>
+                <a href="{{ route(Auth::user()->role . '.user.show', $user->id) }}">
+                    <button
+                        class="p-2 bg-green-100 text-green-500 hover:bg-green-200 hover:text-green-700 rounded transition-colors"
+                        title="View user">
+                        <i class="fa-solid fa-expand"></i> View user
+                    </button>
+                </a>
                 <div x-data="{ showDeleteModal: false }">
                     <button @click="showDeleteModal = true"
                         class="p-2 bg-red-100 text-red-500 hover:bg-red-200 hover:text-red-700 rounded transition-colors"

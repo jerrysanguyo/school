@@ -6,7 +6,8 @@
         x-transition:leave-end="opacity-0 transform scale-90"
         class="bg-white rounded-lg shadow-lg z-10 p-6 w-full max-w-2xl">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold">Add new {{ $resource }}</h2>
+            <h2 class="text-xl font-bold">Update the record of {{ $user->first_name }} {{ $user->middle_name }}
+                {{ $user->last_name }}</h2>
             <button @click="showEditModal = false"
                 class="text-gray-600 hover:text-gray-800 text-2xl leading-none">&times;</button>
         </div>
@@ -39,8 +40,7 @@
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
                     <label for="email" class="block text-gray-700">Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Enter email"
-                        value="{{ $user->email }}"
+                    <input type="email" name="email" id="email" placeholder="Enter email" value="{{ $user->email }}"
                         class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
@@ -77,7 +77,8 @@
                             class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none">
                             <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User</option>
                             <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="superadmin" {{ $user->role === 'superadmin' ? 'selected' : '' }}>Superadmin</option>
+                            <option value="superadmin" {{ $user->role === 'superadmin' ? 'selected' : '' }}>Superadmin
+                            </option>
                         </select>
                         <div
                             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
