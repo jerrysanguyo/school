@@ -73,12 +73,7 @@ class UserController extends Controller
     
     public function show(User $user)
     {
-        //
-    }
-    
-    public function edit(User $user)
-    {
-        return view('cms.edit', compact('user'));
+        return view(Auth::user()->role . '.user.show', compact('user'));
     }
     
     public function update(UserRequest $request, User $user)

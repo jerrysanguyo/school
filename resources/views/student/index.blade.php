@@ -29,11 +29,10 @@
     </div>
 
     @include('alert.index')
-
-    <!-- Search input (auto submits on keyup) -->
+    
     <div class="mb-4">
         <input type="text" id="search" name="search" placeholder="Search by first name..."
-            value="{{ request('search') }}" class="border rounded p-2 w-full">
+            value="{{ request('search') }}" class="border border-gray-300 rounded p-2 w-full">
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
