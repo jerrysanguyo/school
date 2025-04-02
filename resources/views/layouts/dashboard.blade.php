@@ -26,10 +26,10 @@
                 <span x-show="!sidebarCollapsed" x-cloak class="font-bold text-xl flex items-center">
                     <img src="{{ asset('images/srcc_logo.webp') }}" alt="" class="w-10 mr-2">
                     <!-- School name -->
-                     @php
-                         $school = \App\Models\School::first();
-                     @endphp
-                     {{ $school->name ?? 'School name' }}
+                    @php
+                    $school = \App\Models\School::first();
+                    @endphp
+                    {{ $school->name ?? 'School name' }}
                 </span>
                 <span x-show="sidebarCollapsed" x-cloak class="font-bold text-xl">
                     <img src="{{ asset('images/srcc_logo.webp') }}" alt="" class="w-10">

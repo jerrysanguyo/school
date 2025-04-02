@@ -39,7 +39,21 @@ class User extends Authenticatable
     {
         return self::all();
     }
-    
+
+    public function scopeSearchByName($query, $search)
+    {
+        if (strpos($search, ' ') !== false) {
+            [$firstName, $lastName] = preg_split('/\s+/', $search, 2);
+            return $query->where('first_name', 'like', "%{$firstName}%")
+                        ->where('last_name', 'like', "%{$lastName}%");
+        }
+
+        return $query->where(function ($q) use ($search) {
+            $q->where('first_name', 'like', "%{$search}%")
+            ->orWhere('last_name', 'like', "%{$search}%");
+        });
+    }
+        
     // created a nested array for dynamic relationships
     // key is the outer array
     // config is the inner array

@@ -9,6 +9,7 @@ use App\Http\Requests\auth\LoginRequest;
 use App\DataTables\UserDataTable;
 use App\Services\auth\UserService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -46,12 +47,24 @@ class UserController extends Controller
             ->with('failed', 'Invalid login credentials.');
     }
     
-    public function index(UserDataTable $dataTable)
+    public function index(Request $request, UserDataTable $dataTable)
     {
         $page_title = 'Users';
         $resource   = 'user';
-        return $dataTable->render('student.index', compact('page_title', 'resource'));
+    
+        $query = User::query();
+    
+        if ($request->filled('search')) {
+            $query->searchByName($request->input('search'));
+        }
+    
+        $query->orderBy('created_at', 'desc');
+    
+        $users = $query->paginate(8)->withQueryString();
+    
+        return $dataTable->render('student.index', compact('page_title', 'resource', 'users'));
     }
+    
     
     public function store()
     {
