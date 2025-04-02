@@ -29,13 +29,13 @@
     </div>
 
     @include('alert.index')
-    
+
     <!-- Search input (auto submits on keyup) -->
     <div class="mb-4">
         <input type="text" id="search" name="search" placeholder="Search by first name..."
-               value="{{ request('search') }}" class="border rounded p-2 w-full">
+            value="{{ request('search') }}" class="border rounded p-2 w-full">
     </div>
-    
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         @foreach ($users as $user)
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -50,15 +50,24 @@
                 <p class="mb-2"><span class="font-semibold">Contact:</span> {{ $user->contact_number }}</p>
             </div>
             <div class="flex justify-center space-x-2 border-t border-gray-200 px-3 py-4">
-                <button class="p-2 bg-blue-100 text-blue-500 hover:bg-blue-200 hover:text-blue-700 rounded transition-colors" title="Edit">
+                <button
+                    class="p-2 bg-blue-100 text-blue-500 hover:bg-blue-200 hover:text-blue-700 rounded transition-colors"
+                    title="Edit">
                     <i class="fa-solid fa-pen-to-square"></i> Edit
                 </button>
-                <button class="p-2 bg-green-100 text-green-500 hover:bg-green-200 hover:text-green-700 rounded transition-colors" title="View user">
+                <button
+                    class="p-2 bg-green-100 text-green-500 hover:bg-green-200 hover:text-green-700 rounded transition-colors"
+                    title="View user">
                     <i class="fa-solid fa-expand"></i> View user
                 </button>
-                <button class="p-2 bg-red-100 text-red-500 hover:bg-red-200 hover:text-red-700 rounded transition-colors" title="Delete">
-                    <i class="fa-solid fa-trash"></i> Delete
-                </button>
+                <div x-data="{ showDeleteModal: false }">
+                    <button @click="showDeleteModal = true"
+                        class="p-2 bg-red-100 text-red-500 hover:bg-red-200 hover:text-red-700 rounded transition-colors"
+                        title="Delete">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                    @include('student.delete')
+                </div>
             </div>
         </div>
         @endforeach
@@ -70,19 +79,19 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const searchInput = document.getElementById('search');
-        let timeout = null;
-        searchInput.addEventListener('keyup', function () {
-            clearTimeout(timeout);
-            timeout = setTimeout(function () {
-                const query = searchInput.value;
-                const url = new URL(window.location.href);
-                url.searchParams.set('search', query);
-                window.location.href = url.toString();
-            }, 500);
-        });
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById('search');
+    let timeout = null;
+    searchInput.addEventListener('keyup', function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            const query = searchInput.value;
+            const url = new URL(window.location.href);
+            url.searchParams.set('search', query);
+            window.location.href = url.toString();
+        }, 500);
     });
+});
 </script>
 
 @endsection

@@ -86,7 +86,7 @@ class UserController extends Controller
         $this->userService->update($request->validated(), $user);
 
         return redirect()
-            ->route(Auth::user()->role . '.cms.edit', $user)
+            ->route(Auth::user()->role . '.user.index')
             ->with('success', 'User updated successfully');
     }
     
@@ -95,7 +95,7 @@ class UserController extends Controller
         $this->userService->destroy($user);
 
         return redirect()
-            ->route(Auth::user()->role . '.cms.index')
+            ->route(Auth::user()->role . '.user.index')
             ->with('success', 'User updated successfully');
     }
 }
