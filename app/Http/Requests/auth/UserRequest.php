@@ -20,7 +20,9 @@ class UserRequest extends FormRequest
             'last_name'    => 'required|string|max:255',
             'email'          => 'required|string|email|max:255|unique:users,email,' . $userId,
             'contact_number' => 'required|string|max:255|unique:users,contact_number,' . $userId,
-            'password'     => 'required|string|min:8',
+            'password'     => 'nullable|string|min:8',
+            'type'           => 'required|string|in:student,faculty',
+            'role'           => 'required|string|in:user,admin,superadmin',
         ];
     }
 }

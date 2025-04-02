@@ -29,7 +29,7 @@
     </div>
 
     @include('alert.index')
-    
+
     <div class="mb-4">
         <input type="text" id="search" name="search" placeholder="Search by first name..."
             value="{{ request('search') }}" class="border border-gray-300 rounded p-2 w-full">
@@ -42,18 +42,21 @@
                 <h2 class="text-xl font-bold">
                     {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}
                 </h2>
-                <p class="text-sm capitalize">{{ $user->role }}</p>
+                <p class="text-sm capitalize">{{ $user->type }}</p>
             </div>
             <div class="px-8 py-6 text-gray-800">
                 <p class="mb-2"><span class="font-semibold">Email:</span> {{ $user->email }}</p>
                 <p class="mb-2"><span class="font-semibold">Contact:</span> {{ $user->contact_number }}</p>
             </div>
             <div class="flex justify-center space-x-2 border-t border-gray-200 px-3 py-4">
-                <button
-                    class="p-2 bg-blue-100 text-blue-500 hover:bg-blue-200 hover:text-blue-700 rounded transition-colors"
-                    title="Edit">
-                    <i class="fa-solid fa-pen-to-square"></i> Edit
-                </button>
+                <div x-data="{ showEditModal: false }">
+                    <button @click="showEditModal = true"
+                        class="p-2 bg-blue-100 text-blue-500 hover:bg-blue-200 hover:text-blue-700 rounded transition-colors"
+                        title="Edit">
+                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                    </button>
+                    @include('student.edit')
+                </div>
                 <button
                     class="p-2 bg-green-100 text-green-500 hover:bg-green-200 hover:text-green-700 rounded transition-colors"
                     title="View user">

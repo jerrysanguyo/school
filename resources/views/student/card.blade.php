@@ -4,7 +4,7 @@
             <h2 class="text-xl font-bold">
                 {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}
             </h2>
-            <p class="text-sm capitalize">{{ $user->role }}</p>
+            <p class="text-sm capitalize">{{ $user->type }}</p>
         </div>
         <div class="px-8 py-6 text-gray-800">
             <p class="mb-2"><span class="font-semibold">Email:</span> {{ $user->email }}</p>

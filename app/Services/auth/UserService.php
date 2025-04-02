@@ -22,6 +22,20 @@ class UserService
         ]);
     }
 
+    public function store(array $data): User
+    {
+        return User::create([
+            'first_name'    => $data['first_name'],
+            'middle_name'   => $data['middle_name'],
+            'last_name'     => $data['last_name'],
+            'email'         => $data['email'],
+            'contact_number'    => $data['contact_number'],
+            'password'      => bcrypt('password'),
+            'type'          =>  $data['type'],
+            'role'          =>  $data['role'],
+        ]);
+    }
+
     public function update(array $data, $user): void
     {
         $user->update($data);

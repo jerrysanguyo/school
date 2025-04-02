@@ -66,16 +66,21 @@ class UserController extends Controller
     }
     
     
-    public function store()
+    public function store(UserRequest $request)
     {
-        //
+        $data = $request->validated();
+        $this->userService->store($data);
+
+        return redirect()
+            ->route(Auth::user()->role . '.user.index')
+            ->with('success', 'User added successfully');
     }
     
     public function show(User $user)
     {
         return view(Auth::user()->role . '.user.show', compact('user'));
     }
-    
+
     public function update(UserRequest $request, User $user)
     {
         $this->userService->update($request->validated(), $user);
