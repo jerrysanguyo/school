@@ -51,6 +51,7 @@ class UserController extends Controller
     {
         $page_title = 'Users';
         $resource   = 'user';
+        $page = 'Table';
     
         $query = User::query();
     
@@ -62,7 +63,7 @@ class UserController extends Controller
     
         $users = $query->paginate(8)->withQueryString();
     
-        return $dataTable->render('student.index', compact('page_title', 'resource', 'users'));
+        return $dataTable->render('student.index', compact('page_title', 'resource', 'users', 'page'));
     }
     
     
@@ -78,7 +79,8 @@ class UserController extends Controller
     
     public function show(User $user)
     {
-        return view('student.show', compact('user'));
+        $page_title = 'User';
+        return view('student.show', compact('user', 'page_title'));
     }
 
     public function update(UserRequest $request, User $user)

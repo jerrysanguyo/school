@@ -11,7 +11,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\RfidController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/login', [UserController::class, 'login'])
