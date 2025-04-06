@@ -2,7 +2,7 @@
 @section('content')
 
 @section('breadcrumb')
-    <x-breadcrumb :items="[
+<x-breadcrumb :items="[
         ['label' => 'Students', 'url' => route(Auth::user()->role . '.user.index')],
     ]" />
 @endsection

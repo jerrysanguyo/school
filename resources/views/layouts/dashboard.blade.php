@@ -39,15 +39,14 @@
             </div>
 
             <nav class="p-4 space-y-2">
-                <a href="{{ route(Auth::user()->role . '.dashboard') }}"
-                    class="block py-2 px-3 rounded hover:bg-[#F4C027] hover:text-black text-white transition">
+                <a href="{{ route(Auth::user()->role . '.dashboard') }}" class="block py-2 px-3 rounded hover:bg-[#F4C027] hover:text-black text-white transition">
                     <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-table-columns"></i> Dashboard</span>
                     <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-table-columns"></i></span>
                 </a>
-                <a href="{{ route(Auth::user()->role . '.user.index') }}"
-                    class="block py-2 px-3 rounded hover:bg-[#F4C027] hover:text-black text-white transition">
+                @if(Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin')
+                <a href="{{ route(Auth::user()->role . '.user.index') }}" class="block py-2 px-3 rounded hover:bg-[#F4C027] hover:text-black text-white transition">
                     <span x-show="!sidebarCollapsed" x-cloak class="font-medium"><i
                             class="fa-solid fa-graduation-cap"></i> Students</span>
                     <span x-show="sidebarCollapsed" x-cloak class="font-medium"><i
@@ -68,7 +67,8 @@
                         </svg>
                     </button>
                     <div x-show="cmsOpen" x-cloak class="mt-2 space-y-2">
-                        <a href="{{ route(Auth::user()->role . '.school.index') }}" class="font-medium block py-2 px-3 rounded hover:bg-[#F4C027] hover:text-black text-white transition">
+                        <a href="{{ route(Auth::user()->role . '.school.index') }}"
+                            class="font-medium block py-2 px-3 rounded hover:bg-[#F4C027] hover:text-black text-white transition">
                             <span x-show="!sidebarCollapsed" x-cloak class="font-medium pl-4">
                                 <i class="fa-solid fa-school"></i> School
                             </span>
@@ -92,19 +92,20 @@
                         </a>
                     </div>
                 </div>
+                @endif
             </nav>
-
+            @php
+                $user = session('external_user');
+            @endphp
             <div class="mt-auto p-4 border-gray-200" x-data="{ userDropdownOpen: false }">
                 <div class="relative">
                     <button @click="userDropdownOpen = !userDropdownOpen"
                         class="w-full flex items-center justify-between py-2 px-3 rounded hover:bg-[#F4C027] hover:text-black text-white transition focus:outline-none">
-                        @if(Auth::check())
-                        <span x-show="!sidebarCollapsed" x-cloak
-                            class="font-medium">{{ Auth::user()->first_name . ' ' . Auth::user()->middle_name . ' ' . Auth::user()->last_name }}
+                        <span x-show="!sidebarCollapsed" x-cloak class="font-medium">
+                            {{ (Auth::user()?->first_name) . ' ' . (Auth::user()?->last_name) }}
                         </span>
-                        @endif
                         <span x-show="sidebarCollapsed" x-cloak
-                            class="font-medium">{{ strtoupper(substr(Auth::user()->first_name, 0,1)) . strtoupper(substr(Auth::user()->last_name, 0,1))}}</span>
+                            class="font-medium">{{ strtoupper(substr(Auth::user()->first_name, 0,1)) . strtoupper(substr(Auth::user()->last_name, 0,1)) }}</span>
                         <svg x-show="!sidebarCollapsed" x-cloak class="w-4 h-4 ml-2" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 15l-7-7-7 7" />
@@ -146,7 +147,7 @@
             <div class="bg-white flex-1 shadow-lg rounded-lg p-6 m-3">
                 <nav class="mb-3">
                     @hasSection('breadcrumb')
-                        @yield('breadcrumb')
+                    @yield('breadcrumb')
                     @endif
                 </nav>
                 <main class="p-5 overflow-y-auto">
